@@ -1,16 +1,16 @@
-﻿using System;
+using System;
 
 namespace Insertion
 {
     class SortingList
     {
-        private int[] list;
+        public int[] list;
         public readonly int Length;
 
         public SortingList(int requiredLength)
         {
             Length = requiredLength;
-            list = new int[_____];
+            list = new int[Length];
         }
 
         public int getListItem(int i)
@@ -33,7 +33,7 @@ namespace Insertion
 
         public void Print()
         {
-            foreach (int i in ____)
+            foreach (int i in list)
                 Console.Write(String.Format("{0}, ", i));
             Console.WriteLine("");
         }
@@ -41,12 +41,12 @@ namespace Insertion
         public void Insert(int value)
         {            
             /* First, find the right place for the item to go in */
-            for (int i = 0; i < list.______; i++)
+            for (int i = 0; i < list.Length; i++)
             {
                 if (list[i] == 0)
                 {
                     /* There is nothing in this place, so just take it */
-                    list[_] = value;
+                    list[i] = value;
                     break;
                 }
                 if (value < list[i])
@@ -124,7 +124,29 @@ namespace Insertion
 
         static void BubbleSort()
         {
-            // Do the BubbleSort dance here!
+            var List = new SortingList(10);
+            List.Randomise();
+            List.Print();
+
+            while (true) // loops forever until break is called
+            {
+                bool swapped = false; // init a boolean to track whether any swaps have been made
+                for (int i = 0; i < List.Length - 1; i++) // for the entirety of the list, minus one (so that the final element is not compared against nothing)
+                {
+                    if (List.list[i] > List.list[i + 1]) // compare the current element to the element to it's right
+                    {
+                        swapped = true; // sets the swapped bool to true indicating that a swap has been made
+                        var tempvar = List.list[i]; // store the current element in the array
+                        List.list[i] = List.list[i + 1]; // overwrites the current element with the smaller value
+                        List.list[i + 1] = tempvar; // move the larger value to i + 1
+                    }
+                }
+                List.Print();
+                if (!swapped) // if swapped is false (indicating that no swaps have been made) the list is sorted
+                {
+                    break; // break is called to end the loop
+                }
+            }
         }
 
         static void InsertionSort() {
@@ -132,18 +154,18 @@ namespace Insertion
             var sortedList = new SortingList(unsortedList.Length);
             
             /* Let's fill the unsorted list with all sorts of junk */
-            unsortedList._________();
+            unsortedList.Randomise();
             unsortedList.Print();
 
             /* This is where we do the insertion sort-- doesn't
              * object oriented make this look easy? */
 
-            for (int i = 0; i < unsortedList.______; i++)
+            for (int i = 0; i < unsortedList.Length; i++)
             {
                 sortedList.Insert(unsortedList.Pop());
             }
 
-            sortedList._____();
+            sortedList.Print();
         }
     }
 }
